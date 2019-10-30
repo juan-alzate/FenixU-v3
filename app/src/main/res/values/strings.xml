@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">FenixU</string>
+    <string name="cronograma">Cronograma</string>
+    <string name="notas">Notas</string>
+    <string name="planAcademico">Plan Académico</string>
+    <string name="agregarNotas">Agregar</string>
+    <string name="eliminarNotas">Eliminar</string>
+    <string name="porcentajeEvaluado">Porcentaje evaluado:</string>
+    <string name="notaActual">Nota actual:</string>
+    <string name="notaNecesaria">Nota necesaria:</string>
+    <string name="numeroCreditos">Créditos:</string>
+    <string name="nota">Nota:</string>
+    <string name="porcentaje">Porcentaje:</string>
+    <string name="promedioSemestre">Promedio: </string>
+
+    <string name="agregarCronograma">Agregar Cronograma</string>
+    <string name="titulo">Titulo </string>
+    <string name="fecha">Fecha</string>
+    <string name="agregar">Agregar</string>
+    <string name="alarma2">Alarma</string>
+    <string name="hora">Hora</string>
+</resources>
