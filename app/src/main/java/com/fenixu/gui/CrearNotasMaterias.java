@@ -47,6 +47,7 @@ public class CrearNotasMaterias extends AppCompatActivity implements DialogoAgre
         setContentView(R.layout.activity_crear_notas_materias);
 
         toolbar = (Toolbar)findViewById(R.id.toolbarAgregarNotas);
+        //toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         lista = (ListView)findViewById(R.id.listViewAgregarNotas);

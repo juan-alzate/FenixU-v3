@@ -35,6 +35,7 @@ public class Semestres extends AppCompatActivity {
 
         //Menu superior
         toolbar = (Toolbar)findViewById(R.id.toolbarNotas);
+        toolbar.setTitle("PLAN ACADÉMICO");
         setSupportActionBar(toolbar);
 
         lista = (ListView)findViewById(R.id.listViewSemestres);

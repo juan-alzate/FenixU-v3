@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,7 +50,7 @@ public class CronogramaActivity extends AppCompatActivity implements View.OnClic
         listView = findViewById(R.id.lvAlarmas);
         if(alarmas != null) if(alarmas.size()>0) alarmas.clear();
         alarmas = AlarmasBase.get(getApplicationContext()).getAlarmas();
-        adaptadorAlarmas = new AdaptadorAlarmas(getApplicationContext(), alarmas);
+        adaptadorAlarmas = new AdaptadorAlarmas(CronogramaActivity.this, alarmas);
         listView.setAdapter(adaptadorAlarmas);
 
         //Incializa FloatingActionButtom
@@ -58,7 +59,6 @@ public class CronogramaActivity extends AppCompatActivity implements View.OnClic
 
         //Fija orientaciond de pantalla
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
     }
 
     @Override
@@ -69,27 +69,32 @@ public class CronogramaActivity extends AppCompatActivity implements View.OnClic
         if(alarmas.size()>0) {
             for (Alarma alarmain : alarmas){
 
+                Log.d("CronogramaActivity","alarma:"+alarmain.toString());
+
                 String fechaActual = Calendar.getInstance().getTime().getDate()+"/"+
                         Calendar.getInstance().getTime().getMonth()+"/"+(1900+
                         Calendar.getInstance().getTime().getYear())+"/"+
                         Calendar.getInstance().getTime().getHours()+"/"+
                         Calendar.getInstance().getTime().getMinutes();
 
+                Log.d("CronogramaActivity","fechaActual:"+fechaActual.toString());
+
                 String[] h = alarmain.getHora().split(":");
                 String fechaAlarma = alarmain.getFecha()+"/"+h[0]+"/"+h[1];
-
 
                 //Evita poner alarmas inmediatas
                 if(!fechaAnteriorAB(fechaAlarma, fechaActual)) {
 
+                    Log.d("CronogramaActivity","Entro");
                     //Intent
                     Intent intentar = new Intent(CronogramaActivity.this, AlarmReceiver.class);
                     intentar.putExtra("idAlarma", alarmain.getId());
                     intentar.putExtra("tituloAlarma", alarmain.getTitulo());
                     intentar.setAction(Long.toString(System.currentTimeMillis()));
+                    Log.d("CronogramaActivity","Intent:"+intentar.toString());
 
                     //Pending intent
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(CronogramaActivity.this, 0, intentar, PendingIntent.FLAG_ONE_SHOT);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(CronogramaActivity.this, 0, intentar, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     //AlarmManager
                     AlarmManager alarmMgr = (AlarmManager) getSystemService(this.ALARM_SERVICE);
@@ -104,9 +109,11 @@ public class CronogramaActivity extends AppCompatActivity implements View.OnClic
                     calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(t1[0]));
                     calendar.set(Calendar.MINUTE, Integer.parseInt(t1[1]));
                     calendar.set(Calendar.SECOND, 0);
+                    Log.d("CronogramaActivity","calendar:"+calendar.toString());
 
                     //Set Pending Intent to alarmManager at Calendar time
                     alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    Log.d("CronogramaActivity","alarmMgr:"+alarmMgr.toString());
                 }
             }
         }

@@ -9,11 +9,12 @@
         android:id="@+id/txdialogo_agregar_alarma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_gravity="center"
+        android:layout_marginTop="5dp"
         android:text="@string/alarma2"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etTituloAlarma"
@@ -28,8 +29,8 @@
         android:id="@+id/btnCrearAlarma"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_light"
-        android:textColor="@android:color/white"
-        android:text="@string/agregar"/>
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/agregar"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

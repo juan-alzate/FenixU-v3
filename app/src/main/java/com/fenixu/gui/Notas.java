@@ -41,6 +41,7 @@ public class Notas extends AppCompatActivity implements DialogoCrearMateria.Dial
 
         //Menu superior
         toolbar = (Toolbar)findViewById(R.id.toolbarNotas);
+        toolbar.setTitle("NOTAS");
         setSupportActionBar(toolbar);
 
         lista = (ListView)findViewById(R.id.listViewNotas);

@@ -5,7 +5,10 @@ import android.app.Notification;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +34,7 @@ public class AdaptadorAlarmas extends BaseAdapter {
 
     private Context context;
     private List<Alarma> alarmas;
+
 
     public AdaptadorAlarmas(Context context, List<Alarma> alarmas) {
         this.context = context;
@@ -77,14 +81,14 @@ public class AdaptadorAlarmas extends BaseAdapter {
             @Override
             public void onClick(View viw) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        viewin.getContext(), new DatePickerDialog.OnDateSetListener() {
+                        context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         //Guarda en bd
                         String fecha = ""+ i2+"/"+i1+"/"+i;
                         Alarma alarma = alarmas.get(iin);
                         alarma.setFecha(fecha);
-                        AlarmasBase.get(viewin.getContext()).actualizarAlarma(alarma);
+                        AlarmasBase.get(context).actualizarAlarma(alarma);
                         //Refresca los datos
                         notifyDataSetChanged();
                         refresca();
@@ -94,7 +98,7 @@ public class AdaptadorAlarmas extends BaseAdapter {
                         Calendar.getInstance().get(Calendar.MONTH),
                         Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
                 );
-                datePickerDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                //datePickerDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
                 datePickerDialog.show();
             }
         });
@@ -106,7 +110,7 @@ public class AdaptadorAlarmas extends BaseAdapter {
             @Override
             public void onClick(View viw) {
                 TimePickerDialog datePickerDialog = new TimePickerDialog(
-                        viewin.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                        context, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int i, int i1) {
                         //Guarda en bd
@@ -116,7 +120,7 @@ public class AdaptadorAlarmas extends BaseAdapter {
                         hora = h+":"+s;
                         Alarma alarma = alarmas.get(iin);
                         alarma.setHora(hora);
-                        AlarmasBase.get(viewin.getContext()).actualizarAlarma(alarma);
+                        AlarmasBase.get(context).actualizarAlarma(alarma);
                         //Refresca los datos
                         notifyDataSetChanged();
                         refresca();
@@ -126,7 +130,7 @@ public class AdaptadorAlarmas extends BaseAdapter {
                         Calendar.getInstance().get(Calendar.MINUTE),
                         true
                 );
-                datePickerDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                //datePickerDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL);
                 datePickerDialog.show();
             }
         });
@@ -137,9 +141,9 @@ public class AdaptadorAlarmas extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Alarma alarma = alarmas.get(iin);
-                AlarmasBase.get(viewin.getContext()).eliminarAlarma(alarma);
+                AlarmasBase.get(context).eliminarAlarma(alarma);
                 alarmas.clear();
-                alarmas = AlarmasBase.get(viewin.getContext()).getAlarmas();
+                alarmas = AlarmasBase.get(context).getAlarmas();
                 //Refresca los datos
                 notifyDataSetChanged();
                 refresca();
